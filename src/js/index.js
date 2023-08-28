@@ -6,15 +6,15 @@ import { pageItems } from './fetch';
 // const API_KEY = "39056074-7558ace36b4fb710d53bdcd58";
 // const searchForm = document.querySelector('.search-form');
 // const gallery = document.querySelector('.gallery');
-// const buttonLoad = document.querySelector('.load-more');
+// const buttonLoadMore = document.querySelector('.load-more');
 
 const perPage = 40;
 let page = 1;
 let searchPhoto = '';
 
-const {searchForm, gallery, buttonLoad} = pageItems;
+const {searchForm, gallery, buttonLoadMore} = pageItems;
 
-buttonLoad.classList.add('is-hidden');
+buttonLoadMore.classList.add('is-hidden');
 searchForm.addEventListener('submit', submitForm);
 
 function submitForm(e){
@@ -22,11 +22,11 @@ function submitForm(e){
 
     gallery.innerHTML = '';
     page = 1;
-    const {searchQuery} = e.currentTarget.elements;
+    const {searchQuery} = e.Target.elements;
     searchPhoto = searchQuery.value
     .trim()
     .toLowerCase()
-    .split()
+    .split(' ')
     .join('+');
 
         if (searchPhoto === ''){
@@ -39,8 +39,8 @@ function submitForm(e){
             });
             return;
         }
-    fetchPictures(searchPhoto, page, perPage).then(data=>{
-        const results = data.hits;
+    fetchPictures(searchPhoto, page, perPage) = (async data=>{
+        const results = await data.hits;
         if(data.totalHits === 0) {
             Notify.failure('Sorry, there are no images matching your search query. Please try again.', 
             {
@@ -60,12 +60,12 @@ function submitForm(e){
             createMarkUp(results);
         };
         if(data.totalHits > perPage) {
-            buttonLoad.classList.remove('is-hidden');
+            buttonLoadMore.classList.remove('is-hidden');
             window.addEventListener('scroll', loadMorePage);
         };
     }).catch(fetchError);
 
-    buttonLoad.addEventListener('click', clickLoadMore);
+    buttonLoadMore.addEventListener('click', clickLoadMore);
 
     e.currentTarget.reset();
 };
@@ -79,7 +79,7 @@ function clickLoadMore(){
         createMarkUp(results);
 
         if (page === pagesNumber){
-            buttonLoad.classList.add('is-hidden');
+            buttonLoadMore.classList.add('is-hidden');
             Notify.info("We're sorry, but you've reached the end of search results.",  {
                 position: 'center-top',
                 timeout: 5000,
@@ -87,7 +87,7 @@ function clickLoadMore(){
                 fontSize: '18px',
             });
             
-            buttonLoad.removeEventListener('click', clickLoadMore);
+            buttonLoadMore.removeEventListener('click', clickLoadMore);
             window.removeEventListener('scroll', loadMorePage);
         };
 

@@ -4,7 +4,7 @@ axios.defaults.headers.common["x-api-key"] = "live_TwsPnWVWgRd7Je8KwFxuzAGnQywMP
 const base_url = "https://pixabay.com/api/";
 
 export async function fetchPictures (q, page, perPage){
-    const url = `${base_url}?q=${q}&page=${page},&per_page=${perPage}&image_type=${photo}&orientation=horizontal&safesearch=true`;
+    const url = `${base_url}?q=${q}&page=${page}&per_page=${perPage}&image_type=${photo}&orientation=horizontal&safesearch=true`;
     const response = await axios.get(url);
     return response.data;
 };
@@ -12,7 +12,7 @@ export async function fetchPictures (q, page, perPage){
 export const pageItems = {
     searchForm: document.querySelector('.search-form'),
     gallery: document.querySelector('.gallery'),
-    buttonLoad: document.querySelector('.load-more'),
+    buttonLoadMore: document.querySelector('.load-more'),
 };
 
 export function createMarkUp(results){

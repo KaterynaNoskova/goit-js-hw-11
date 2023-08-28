@@ -1,0 +1,78 @@
+* {
+    box-sizing: border-box;
+}
+img {
+    display: block;
+    max-width: 100%;
+    border: 1px solid #140000;
+    border-radius: 10px;
+}
+input {
+    width: 500px;
+    height: 50px;
+    padding: 5px 15px;
+    font-size: 14px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+}
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 25px;
+    font-size: 14px;
+    font-weight: 400;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color:burlywood;
+}
+button:hover,
+button:focus {
+    background-color: #fe84f4;
+}
+.is-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+.load-more {
+    margin: 40px auto;
+    width: 150px;
+    background-color: burlywood;
+}
+.load-more:hover,
+.load-more:focus {
+    background-color: #fe84f4;
+}
+.gallery {
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+.photo-card {
+    background-color: #f9f6afe2;
+    border: 1px solid #140000;
+    border-radius: 10px;    
+    padding: 15px;
+}
+.photo-wrap {
+    height: 250px;
+    display: flex;
+    align-items: center;
+}
+.gallery-link {
+    display: block;
+    text-decoration: none;
+}
