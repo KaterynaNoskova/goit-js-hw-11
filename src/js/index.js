@@ -22,7 +22,7 @@ function submitForm(e){
 
     gallery.innerHTML = '';
     page = 1;
-    const {searchQuery} = e.Target.elements;
+    const {searchQuery} = e.target.elements;
     searchPhoto = searchQuery.value
     .trim()
     .toLowerCase()
@@ -39,35 +39,36 @@ function submitForm(e){
             });
             return;
         }
-    fetchPictures(searchPhoto, page, perPage) = (async data=>{
-        const results = await data.hits;
-        if(data.totalHits === 0) {
-            Notify.failure('Sorry, there are no images matching your search query. Please try again.', 
-            {
-                position:'center-bottom',
-                timeout: 5000,
-                width: '250px',
-                fontSize: '14px',
-            });
-        } else {
-            Notify.info(`Hooray! We found ${totalHits} images.`, 
-            {
-                position: 'center-top',
-                timeout: 5000,
-                width: '250px',
-                fontSize: '14px',
-            });
-            createMarkUp(results);
-        };
-        if(data.totalHits > perPage) {
-            buttonLoadMore.classList.remove('is-hidden');
-            window.addEventListener('scroll', loadMorePage);
-        };
-    }).catch(fetchError);
-
+    async function fetchPictures(searchPhoto, page, perPage) {
+        (data => {
+            const results = data.hits;
+            if (data.totalHits === 0) {
+                Notify.failure('Sorry, there are no images matching your search query. Please try again.',
+                    {
+                        position: 'center-bottom',
+                        timeout: 5000,
+                        width: '250px',
+                        fontSize: '14px',
+                    });
+            } else {
+                Notify.info(`Hooray! We found ${totalHits} images.`,
+                    {
+                        position: 'center-top',
+                        timeout: 5000,
+                        width: '250px',
+                        fontSize: '14px',
+                    });
+                createMarkUp(results);
+            };
+            if (data.totalHits > perPage) {
+                buttonLoadMore.classList.remove('is-hidden');
+                window.addEventListener('scroll', loadMorePage);
+            };
+        }).catch(fetchError);
+    }
     buttonLoadMore.addEventListener('click', clickLoadMore);
 
-    e.currentTarget.reset();
+    e.target.reset();
 };
 
 function clickLoadMore(){
@@ -102,14 +103,4 @@ function fetchError(){
         width: '250px',
         fontSize: '16px'
     });
-};
-
-function loadMorePage(){
-    if(checkPagesEnd()){
-        clickLoadMore();
-    };
-};
-
-function checkPagesEnd(){
-    return (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight);
 };
